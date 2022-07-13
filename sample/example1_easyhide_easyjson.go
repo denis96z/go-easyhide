@@ -152,6 +152,12 @@ func easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample2(in *jlexer.Lexer, 
 			out.A3 = string(in.String())
 		case "A4":
 			out.A4 = string(in.String())
+		case "A5":
+			out.A5 = string(in.String())
+		case "A6":
+			out.A6 = string(in.String())
+		case "A7":
+			out.A7 = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -185,6 +191,21 @@ func easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample2(out *jwriter.Write
 		const prefix string = ",\"A4\":"
 		out.RawString(prefix)
 		out.String(string(in.A4))
+	}
+	{
+		const prefix string = ",\"A5\":"
+		out.RawString(prefix)
+		out.String(string(in.A5))
+	}
+	{
+		const prefix string = ",\"A6\":"
+		out.RawString(prefix)
+		out.String(string(in.A6))
+	}
+	{
+		const prefix string = ",\"A7\":"
+		out.RawString(prefix)
+		out.String(string(in.A7))
 	}
 	out.RawByte('}')
 }

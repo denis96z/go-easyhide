@@ -19,6 +19,15 @@ func (v T1) EasyHide() ([]byte, error) {
 		xv.A2 = easyhide.HiddenMarker
 		xv.A3 = easyhide.HiddenMarker + xv.A3[len(xv.A3)/2:]
 		xv.A4 = xv.A4[:len(xv.A4)/2] + easyhide.HiddenMarker
+		if xv.A5 != "" {
+			xv.A5 = easyhide.HiddenMarker
+		}
+		if xv.A6 != "" {
+			xv.A6 = easyhide.HiddenMarker + xv.A6[len(xv.A6)/2:]
+		}
+		if xv.A7 != "" {
+			xv.A7 = xv.A7[:len(xv.A7)/2] + easyhide.HiddenMarker
+		}
 	}
 	return json.Marshal(xv)
 }

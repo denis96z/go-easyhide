@@ -73,8 +73,16 @@ func generateCodeForString(name string, tg string) string {
 		return name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:]"
 	case "hide:HR":
 		return name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker"
+	case "hide:NE":
+		return `if ` + name + ` != "" { ` + name + ` = easyhide.HiddenMarker }`
+	case "hide:HL,NE":
+		return `if ` + name + ` != "" { ` + name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:] }"
+	case "hide:HR,NE":
+		return `if ` + name + ` != "" { ` + name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker }"
 	default:
-		panic("bad tag")
+		panic(fmt.Sprintf(
+			"bad tag: %q", tg,
+		))
 	}
 }
 
