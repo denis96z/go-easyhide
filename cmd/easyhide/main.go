@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"go-easyhide/pkg/generator"
-	"go-easyhide/pkg/parser"
+	"github.com/denis96z/go-easyhide/pkg/easyhide/generator"
+	"github.com/denis96z/go-easyhide/pkg/easyhide/parser"
 )
 
 func main() {

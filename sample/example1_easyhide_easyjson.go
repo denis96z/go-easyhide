@@ -17,7 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjson291b620aDecodeGoEasyhideSample(in *jlexer.Lexer, out *tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) {
+func easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample(in *jlexer.Lexer, out *tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -37,7 +37,7 @@ func easyjson291b620aDecodeGoEasyhideSample(in *jlexer.Lexer, out *tp5dd67f7fb9c
 		}
 		switch key {
 		case "c1":
-			easyjson291b620aDecodeGoEasyhideSample1(in, &out.C1)
+			easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample1(in, &out.C1)
 		default:
 			in.SkipRecursive()
 		}
@@ -48,14 +48,14 @@ func easyjson291b620aDecodeGoEasyhideSample(in *jlexer.Lexer, out *tp5dd67f7fb9c
 		in.Consumed()
 	}
 }
-func easyjson291b620aEncodeGoEasyhideSample(out *jwriter.Writer, in tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) {
+func easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample(out *jwriter.Writer, in tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) {
 	out.RawByte('{')
 	first := true
 	_ = first
 	{
 		const prefix string = ",\"c1\":"
 		out.RawString(prefix[1:])
-		easyjson291b620aEncodeGoEasyhideSample1(out, in.C1)
+		easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample1(out, in.C1)
 	}
 	out.RawByte('}')
 }
@@ -63,27 +63,27 @@ func easyjson291b620aEncodeGoEasyhideSample(out *jwriter.Writer, in tp5dd67f7fb9
 // MarshalJSON supports json.Marshaler interface
 func (v tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson291b620aEncodeGoEasyhideSample(&w, v)
+	easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson291b620aEncodeGoEasyhideSample(w, v)
+	easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson291b620aDecodeGoEasyhideSample(&r, v)
+	easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson291b620aDecodeGoEasyhideSample(l, v)
+	easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample(l, v)
 }
-func easyjson291b620aDecodeGoEasyhideSample1(in *jlexer.Lexer, out *T4) {
+func easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample1(in *jlexer.Lexer, out *T4) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -114,7 +114,7 @@ func easyjson291b620aDecodeGoEasyhideSample1(in *jlexer.Lexer, out *T4) {
 		in.Consumed()
 	}
 }
-func easyjson291b620aEncodeGoEasyhideSample1(out *jwriter.Writer, in T4) {
+func easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample1(out *jwriter.Writer, in T4) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -125,7 +125,7 @@ func easyjson291b620aEncodeGoEasyhideSample1(out *jwriter.Writer, in T4) {
 	}
 	out.RawByte('}')
 }
-func easyjson291b620aDecodeGoEasyhideSample2(in *jlexer.Lexer, out *tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) {
+func easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample2(in *jlexer.Lexer, out *tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -162,7 +162,7 @@ func easyjson291b620aDecodeGoEasyhideSample2(in *jlexer.Lexer, out *tp1f93603db5
 		in.Consumed()
 	}
 }
-func easyjson291b620aEncodeGoEasyhideSample2(out *jwriter.Writer, in tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) {
+func easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample2(out *jwriter.Writer, in tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -192,23 +192,23 @@ func easyjson291b620aEncodeGoEasyhideSample2(out *jwriter.Writer, in tp1f93603db
 // MarshalJSON supports json.Marshaler interface
 func (v tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson291b620aEncodeGoEasyhideSample2(&w, v)
+	easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample2(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson291b620aEncodeGoEasyhideSample2(w, v)
+	easyjson291b620aEncodeGithubComDenis96zGoEasyhideSample2(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson291b620aDecodeGoEasyhideSample2(&r, v)
+	easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample2(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *tp1f93603db53bfad5c92390f735d0cbb8617b4ab8214ae91c5664a3d1e9b009c8) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson291b620aDecodeGoEasyhideSample2(l, v)
+	easyjson291b620aDecodeGithubComDenis96zGoEasyhideSample2(l, v)
 }

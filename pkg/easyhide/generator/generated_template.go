@@ -12,7 +12,7 @@ package {{$data.PkgName}}
 import (
 	json "encoding/json"
 
-	easyhide "go-easyhide/pkg/easyhide"
+	easyhide "github.com/denis96z/go-easyhide/pkg/easyhide"
 )
 
 {{range $idx, $tp := $data.Types}}

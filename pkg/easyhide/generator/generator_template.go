@@ -12,7 +12,7 @@ package main
 import (
 	"log"
 
-	easyhide "go-easyhide/pkg/generator"
+	easyhide "github.com/denis96z/go-easyhide/pkg/easyhide/generator"
 
 	{{$info.Pkg.Name}} {{printf "%q" $info.Pkg.Path}}
 )

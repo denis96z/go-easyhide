@@ -7,7 +7,7 @@ package sample
 import (
 	json "encoding/json"
 
-	easyhide "go-easyhide/pkg/easyhide"
+	easyhide "github.com/denis96z/go-easyhide/pkg/easyhide"
 )
 
 //easyjson:json

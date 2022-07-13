@@ -1,4 +1,4 @@
-module go-easyhide
+module github.com/denis96z/go-easyhide
 
 go 1.17
 

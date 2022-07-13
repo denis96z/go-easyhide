@@ -2,8 +2,9 @@ package generator
 
 import (
 	"fmt"
-	"go-easyhide/pkg/parser"
 	"os"
+
+	"github.com/denis96z/go-easyhide/pkg/easyhide/parser"
 )
 
 func MakeGeneratorFilePath(srcPath string) string {

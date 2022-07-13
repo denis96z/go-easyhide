@@ -5,7 +5,7 @@ package main
 import (
 	"fmt"
 
-	"go-easyhide/sample"
+	"github.com/denis96z/go-easyhide/sample"
 )
 
 func main() {

@@ -3,14 +3,14 @@ all: easyhide
 
 .PHONY: easyhide
 easyhide:
-	go build -mod=vendor -o $(PWD)/bin/easyhide $(PWD)/cmd/easyhide/...
+	go build -o $(PWD)/bin/easyhide $(PWD)/cmd/easyhide/...
 
 .PHONY: fmt
 fmt:
 	go fmt $(PWD)/...
 
 .PHONY: tidy
-vendor:
+tidy:
 	go mod tidy
 
 bin/easyjson:
