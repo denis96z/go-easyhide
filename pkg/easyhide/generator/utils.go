@@ -11,6 +11,9 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
+	"regexp"
+	"strconv"
+	"strings"
 	"text/template"
 )
 
@@ -66,24 +69,76 @@ func generateCodeForStructFields(val reflect.Value, pfx string) string {
 }
 
 func generateCodeForString(name string, tg string) string {
-	switch tg {
-	case "hide":
+	if strings.HasPrefix(tg, "show:") {
+		r := regexp.MustCompile(
+			`^show:C(\d+(-\d+)?)(,\d+(-\d+)?)*$`,
+		)
+		if !r.MatchString(tg) {
+			panicBadTag(tg)
+		}
+
+		idxArr := make([]int, 0)
+		s := tg[len("show:C"):]
+
+		curNum, hasDash := "", false
+		for i := 0; i < len(s); i++ {
+			switch c := s[i]; c {
+			case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+				curNum += string(c)
+			case '-', ',':
+				idxArr = append(idxArr, strToInt(curNum))
+				if c == ',' && !hasDash {
+					idxArr = append(idxArr, strToInt(curNum))
+				}
+				curNum, hasDash = "", c == '-'
+			}
+		}
+
+		idxArr = append(idxArr, strToInt(curNum))
+		if !hasDash {
+			idxArr = append(idxArr, strToInt(curNum))
+		}
+
+		prevIdx := 0
+		for _, curIdx := range idxArr {
+			if prevIdx > curIdx {
+				panicBadTag(tg)
+			}
+		}
+	}
+
+	switch {
+	case tg == "hide":
 		return name + " = easyhide.HiddenMarker"
-	case "hide:HL":
+	case tg == "hide:HL":
 		return name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:]"
-	case "hide:HR":
+	case tg == "hide:HR":
 		return name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker"
-	case "hide:NE":
+	case tg == "hide:NE":
 		return `if ` + name + ` != "" { ` + name + ` = easyhide.HiddenMarker }`
-	case "hide:HL,NE":
+	case tg == "hide:HL,NE":
 		return `if ` + name + ` != "" { ` + name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:] }"
-	case "hide:HR,NE":
+	case tg == "hide:HR,NE":
 		return `if ` + name + ` != "" { ` + name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker }"
 	default:
-		panic(fmt.Sprintf(
-			"bad tag: %q", tg,
-		))
+		panicBadTag(tg)
 	}
+
+	panic("UNREACHABLE!")
+}
+
+func strToInt(s string) int {
+	v, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return v
+}
+
+func panicBadTag(tg string) {
+	panic(fmt.Sprintf(
+		"bad tag: %q", tg,
+	))
 }
 
 func tpSHA256(tp string) string {
