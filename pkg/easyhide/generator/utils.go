@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"go/format"
 	"go/parser"
@@ -11,6 +12,7 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
+	"strings"
 	"text/template"
 )
 
@@ -66,19 +68,52 @@ func generateCodeForStructFields(val reflect.Value, pfx string) string {
 }
 
 func generateCodeForString(name string, tg string) string {
-	switch tg {
-	case "hide":
+	switch {
+	case tg == "hide":
 		return name + " = easyhide.HiddenMarker"
-	case "hide:HL":
+	case tg == "hide:HL":
 		return name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:]"
-	case "hide:HR":
+	case tg == "hide:HR":
 		return name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker"
-	case "hide:NE":
+	case tg == "hide:NE":
 		return `if ` + name + ` != "" { ` + name + ` = easyhide.HiddenMarker }`
-	case "hide:HL,NE":
+	case tg == "hide:HL,NE":
 		return `if ` + name + ` != "" { ` + name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:] }"
-	case "hide:HR,NE":
+	case tg == "hide:HR,NE":
 		return `if ` + name + ` != "" { ` + name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker }"
+	case strings.HasPrefix(tg, "hide:RE"):
+		rst, ne := tg[len("hide:RE"):], false
+		if strings.HasPrefix(rst, ",NE") {
+			rst, ne = rst[len(",NE"):], true
+		}
+		if !strings.HasPrefix(rst, ":") {
+			panic(fmt.Sprintf(
+				"bad tag rest: %q", rst),
+			)
+		}
+		rst = rst[len(":"):]
+		spl := strings.Split(rst, ":")
+		if len(spl) != 2 {
+			panic(fmt.Sprintf(
+				"bad tag rest: %q", rst),
+			)
+		}
+		rxpName, rplName := spl[0], spl[1]
+		if rxpName == "" {
+			panic(errors.New("empty regexp name"))
+		}
+		if rplName == "" {
+			panic(errors.New("empty replacement name"))
+		}
+		s := ""
+		if ne {
+			s += `if ` + name + ` != "" { `
+		}
+		s += name + ` = ` + rxpName + `.ReplaceAllString(` + name + `, ` + rplName + `)`
+		if ne {
+			s += ` }`
+		}
+		return s
 	default:
 		panic(fmt.Sprintf(
 			"bad tag: %q", tg,

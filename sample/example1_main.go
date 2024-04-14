@@ -10,10 +10,11 @@ import (
 
 func main() {
 	v1 := sample.T1{
-		A1: "value1", //will be shown
-		A2: "value2", //will be hidden
-		A3: "value3", //half chars will be hidden
-		A4: "value4", //half chars will be hidden
+		A1: "value1",
+		A2: "value2",
+		A3: "value3",
+		A4: "value4",
+		A8: "v=12345678",
 	}
 
 	b, _ := v1.EasyHide()

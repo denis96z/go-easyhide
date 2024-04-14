@@ -28,6 +28,9 @@ func (v T1) EasyHide() ([]byte, error) {
 		if xv.A7 != "" {
 			xv.A7 = xv.A7[:len(xv.A7)/2] + easyhide.HiddenMarker
 		}
+		if xv.A8 != "" {
+			xv.A8 = Rxp8.ReplaceAllString(xv.A8, RxpRpl8)
+		}
 	}
 	return json.Marshal(xv)
 }
