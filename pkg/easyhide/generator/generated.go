@@ -10,14 +10,17 @@ func MakeGeneratedFilePath(srcPath string) string {
 }
 
 func GoRunGeneratorFile(gfpath string) error {
-	if err := executeCommand("go", "run", gfpath); err != nil {
-		return err
-	}
-	return nil
+	return executeCommand("go", "run", gfpath)
+}
+
+func GoRunGenerateForResultFile(path string) error {
+	return executeCommand("go", "generate", path)
 }
 
 type GenData struct {
 	PkgName string
+
+	EasyJSON bool
 
 	Types []GenDataTypeInfo
 }

@@ -11,6 +11,7 @@ package main
 
 import (
 	"log"
+	"os/exec"
 
 	easyhide "github.com/denis96z/go-easyhide/pkg/easyhide/generator"
 
@@ -28,8 +29,17 @@ const (
 )
 
 func main() {
+	ej := false
+
+	_, err := exec.LookPath("easyjson")
+	if err == nil {
+		ej = true
+	}
+
 	gData := easyhide.GenData{
 		PkgName: {{printf "%q" $info.Pkg.Name}},
+
+		EasyJSON: ej,
 
 		Types: make([]easyhide.GenDataTypeInfo, 0),
 	}
@@ -43,6 +53,11 @@ func main() {
 	{{end}}
 	if err := easyhide.WriteEasyHideFile(GeneratedFilePath, gData); err != nil {
 		log.Fatal(err)
+	}
+	if gData.EasyJSON {
+		if err := easyhide.GoRunGenerateForResultFile(GeneratedFilePath); err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 `
