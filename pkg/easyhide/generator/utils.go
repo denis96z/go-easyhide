@@ -14,7 +14,7 @@ import (
 	"text/template"
 )
 
-func GenerateCodeForType(v interface{}, tpName string) (string, string) {
+func GenerateCodeForType(v any, tpName string) (string, string) {
 	xtp := "tp" + tpSHA256(tpName)
 
 	s1 := "//easyjson:json\ntype " + xtp + " " + tpName + "\n"
@@ -34,7 +34,7 @@ func GenerateCodeForType(v interface{}, tpName string) (string, string) {
 	return s1, s2
 }
 
-func generateCodeForStruct(v interface{}, tp string) string {
+func generateCodeForStruct(v any, tp string) string {
 	s := "xv := " + tp + "(v)\n"
 	s += "if easyhide.HideData {\n"
 
@@ -94,7 +94,7 @@ func tpSHA256(tp string) string {
 	)
 }
 
-func createGoFileFromTemplate(fpath string, name, ttxt string, data interface{}) error {
+func createGoFileFromTemplate(fpath string, name, ttxt string, data any) error {
 	tmpl, err := template.New(name).Parse(ttxt)
 	if err != nil {
 		panic(err)

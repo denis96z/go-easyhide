@@ -1,6 +1,6 @@
 module github.com/denis96z/go-easyhide
 
-go 1.17
+go 1.22.2
 
 require github.com/mailru/easyjson v0.7.7
 
