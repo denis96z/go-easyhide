@@ -29,19 +29,13 @@ func (v T1) EasyHide() ([]byte, error) {
 			xv.A7 = xv.A7[:len(xv.A7)/2] + easyhide.HiddenMarker
 		}
 		if xv.A8 != "" {
-			xv.A8 = Rxp8.ReplaceAllString(xv.A8, RxpRpl8)
+			xv.A8 = RxpRpl8.Regexp.ReplaceAllString(xv.A8, RxpRpl8.Replacement)
 		}
-	}
-	return json.Marshal(xv)
-}
-
-//easyjson:json
-type tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481 T3
-
-func (v T3) EasyHide() ([]byte, error) {
-	xv := tp5dd67f7fb9c529cb28245800137482c9c2fdff9b7d22f54cd3bfa90c59b78481(v)
-	if easyhide.HideData {
-		xv.C1.D1 = easyhide.HiddenMarker
+		if xv.A9 != "" {
+			for _, rr := range RxpRpls9 {
+				xv.A9 = rr.Regexp.ReplaceAllString(xv.A9, rr.Replacement)
+			}
+		}
 	}
 	return json.Marshal(xv)
 }

@@ -15,17 +15,9 @@ func main() {
 		A3: "value3",
 		A4: "value4",
 		A8: "v=12345678",
+		A9: "https://example.com?k1=v1&password=12345678&k2=v2&token=1234567890",
 	}
 
 	b, _ := v1.EasyHide()
-	fmt.Println(string(b))
-
-	v3 := sample.T3{
-		C1: sample.T4{
-			D1: "value5",
-		},
-	}
-
-	b, _ = v3.EasyHide()
 	fmt.Println(string(b))
 }

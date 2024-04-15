@@ -71,18 +71,29 @@ func generateCodeForString(name string, tg string) string {
 	switch {
 	case tg == "hide":
 		return name + " = easyhide.HiddenMarker"
+
 	case tg == "hide:HL":
 		return name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:]"
+
 	case tg == "hide:HR":
 		return name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker"
+
 	case tg == "hide:NE":
 		return `if ` + name + ` != "" { ` + name + ` = easyhide.HiddenMarker }`
+
 	case tg == "hide:HL,NE":
 		return `if ` + name + ` != "" { ` + name + " = easyhide.HiddenMarker + " + name + "[len(" + name + ")/2:] }"
+
 	case tg == "hide:HR,NE":
 		return `if ` + name + ` != "" { ` + name + " = " + name + "[:len(" + name + ")/2] + easyhide.HiddenMarker }"
+
 	case strings.HasPrefix(tg, "hide:RE"):
-		rst, ne := tg[len("hide:RE"):], false
+		rst, slc := tg[len("hide:RE"):], false
+		if strings.HasPrefix(rst, "S") {
+			rst, slc = rst[len("S"):], true
+		}
+
+		ne := false
 		if strings.HasPrefix(rst, ",NE") {
 			rst, ne = rst[len(",NE"):], true
 		}
@@ -91,29 +102,32 @@ func generateCodeForString(name string, tg string) string {
 				"bad tag rest: %q", rst),
 			)
 		}
-		rst = rst[len(":"):]
-		spl := strings.Split(rst, ":")
-		if len(spl) != 2 {
-			panic(fmt.Sprintf(
-				"bad tag rest: %q", rst),
-			)
+
+		rxpRplName := rst[len(":"):]
+		if rxpRplName == "" {
+			panic(errors.New("empty regexp replacement name"))
 		}
-		rxpName, rplName := spl[0], spl[1]
-		if rxpName == "" {
-			panic(errors.New("empty regexp name"))
-		}
-		if rplName == "" {
-			panic(errors.New("empty replacement name"))
-		}
+
 		s := ""
 		if ne {
 			s += `if ` + name + ` != "" { `
 		}
-		s += name + ` = ` + rxpName + `.ReplaceAllString(` + name + `, ` + rplName + `)`
+
+		rrName := rxpRplName
+		if slc {
+			s += ` for _, rr := range ` + rxpRplName + ` { `
+			rrName = `rr`
+		}
+		s += name + ` = ` + rrName + `.Regexp.ReplaceAllString(` + name + `, ` + rrName + `.Replacement)`
+		if slc {
+			s += ` }`
+		}
 		if ne {
 			s += ` }`
 		}
+
 		return s
+
 	default:
 		panic(fmt.Sprintf(
 			"bad tag: %q", tg,

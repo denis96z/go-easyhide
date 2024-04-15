@@ -2,6 +2,7 @@
 
 ## Example
 ```
+
 //go:generate easyhide
 
 import (
@@ -19,12 +20,26 @@ type T1 struct {
 	A5 string `easyhide:"hide:NE"`
 	A6 string `easyhide:"hide:HL,NE"`
 	A7 string `easyhide:"hide:HR,NE"`
-	A8 string `easyhide:"hide:RE,NE:Rxp8:RxpRpl8"`
+	A8 string `easyhide:"hide:RE,NE:RxpRpl8"`
+	A9 string `easyhide:"hide:RES,NE:RxpRpls9"`
 }
 
 var (
-	Rxp8    = regexp.MustCompile(`^v=(\w{4})\w{4}$`)
-	RxpRpl8 = `v=${1}` + easyhide.HiddenMarker
+	RxpRpl8 = easyhide.RegexpReplacement{
+		Regexp:      regexp.MustCompile(`^v=(\w{4})\w{4}$`),
+		Replacement: `v=${1}` + easyhide.HiddenMarker,
+	}
+
+	RxpRpls9 = []easyhide.RegexpReplacement{
+		{
+			Regexp:      regexp.MustCompile(`password=[^& ]+`),
+			Replacement: `password=` + easyhide.HiddenMarker,
+		},
+		{
+			Regexp:      regexp.MustCompile(`token=[^&]+([^&]{4})`),
+			Replacement: `token=` + easyhide.HiddenMarker + `${1}`,
+		},
+	}
 )
 
 func ExamplePrint() {
@@ -34,12 +49,13 @@ func ExamplePrint() {
 		A3: "value3",
 		A4: "value4",
 		A8: "v=12345678",
+		A9: "https://example.com?k1=v1&password=12345678&k2=v2&token=1234567890",
 	}
 
-    b, _ := v.EasyHide()
-    fmt.Println(string(b))
+	b, _ := v1.EasyHide()
+	fmt.Println(string(b))
 }
 
 //EXPECTED OUTPUT:
-//{"a1":"value1","a2":"****","A3":"****ue3","A4":"val****","A5":"","A6":"","A7":"","A8":"v=1234****"}
+//{"a1":"value1","a2":"****","A3":"****ue3","A4":"val****","A5":"","A6":"","A7":"","A8":"v=1234****","A9":"https://example.com?k1=v1\u0026password=****\u0026k2=v2\u0026token=****7890"}
 ```
